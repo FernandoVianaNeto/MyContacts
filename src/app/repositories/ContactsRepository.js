@@ -5,13 +5,13 @@ let contacts = [
     id: v4(),
     name: 'Fernando',
     email: 'fernando.viana.nt@gmail.com',
-    category: v4(),
+    category_id: v4(),
   },
   {
     id: v4(),
     name: 'Fernando',
     email: 'fernando.viana.nt@gmail.com',
-    category: v4(),
+    category_id: v4(),
   },
 ];
 
@@ -62,6 +62,28 @@ class ContactsRespository {
       };
       contacts.push(newContact);
       resolve(newContact);
+    });
+  }
+
+  update(id, {
+    name, email, phone, category_id,
+  }) {
+    // Criar um novo usuário com base no email, nome, telefone  e categoria
+
+    return new Promise((resolve) => {
+      const updatedContact = {
+        id,
+        name,
+        email,
+        phone,
+        category_id,
+      };
+
+      contacts = contacts.map((contact) => (
+        contact.id === id ? updatedContact : contact
+      ));
+
+      resolve(updatedContact);
     });
   }
 }

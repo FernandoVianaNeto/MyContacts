@@ -57,10 +57,24 @@ class ContactController {
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
-      return response.status(400).json({ error: 'Contact not found' });
+      return response.status(404).json({ error: 'Contact not found' });
     }
 
-    
+    if (!name) {
+      return response.send(400).json({ error: 'Name is required' });
+    }
+
+    const contactByEmail = await ContactsRepository.findEmail(email);
+    if (contactByEmail && contactByEmail.id !== id) {
+      return response.status(400).json({ error: 'This email is already in use' });
+    }
+
+    const contact = await ContactsRepository.update(id,
+      {
+        name, email, phone, category_id,
+      });
+
+    response.json(contact);
   }
 
   async delete(request, response) {
@@ -76,7 +90,7 @@ class ContactController {
 
     await ContactsRepository.delete(id);
 
-    response.sedStatus(204);
+    response.sendStatus(204);
   }
 }
 
