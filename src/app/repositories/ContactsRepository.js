@@ -4,13 +4,22 @@ class ContactsRespository {
   async findAll(orderBy) {
     // Listar todos os registros de um repositório
     const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
-    const rows = await db.query(`SELECT * FROM contacts ORDER BY name ${direction}`);
+    const rows = await db.query(`
+      SELECT contacts.*, categories.name AS category_name
+      FROM contacts
+      LEFT JOIN categories ON categories.id = category_id
+      ORDER BY contacts.name ${direction}`);
     return rows;
   }
 
   async findById(id) {
     // Encontrar um usuário pelo seu id
-    const [row] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]);
+    const [row] = await db.query(`
+      SELECT contacts.*, categories.name AS category_name
+      FROM contacts
+      LEFT JOIN categories ON categories.id = category_id
+      WHERE contacts.id = $1
+    `, [id]);
     return row;
   }
 
