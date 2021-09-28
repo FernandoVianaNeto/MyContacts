@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export default styled.button`
-  width: 100%;
   height: 52px;
   border: none;
+  border-radius: 4px;
+  padding: 0 16px;
   background: ${({ theme }) => theme.colors.primary.main};
   font-size: 16px;
   font-weight: bold;
