@@ -47,11 +47,11 @@ export default function Home() {
   );
 }
 
-fetch('http://localhost:3001/categories', {
-  method: 'DELETE',
-})
-  .then((response) => {
+fetch('http://localhost:3001/categories')
+  .then(async (response) => {
+    const json = await response.json();
     console.log('response', response);
+    console.log('json', json);
   })
   .catch((error) => {
     console.log('erro', error);
