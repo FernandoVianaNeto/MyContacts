@@ -46,3 +46,11 @@ export default function Home() {
     </Container>
   );
 }
+
+fetch('http://localhost:3001/categories')
+  .then((response) => {
+    console.log('response', response);
+  })
+  .catch((error) => {
+    console.log('erro', error);
+  });
