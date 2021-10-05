@@ -47,7 +47,9 @@ export default function Home() {
   );
 }
 
-fetch('http://localhost:3001/categories')
+fetch('http://localhost:3001/categories', {
+  method: 'DELETE',
+})
   .then((response) => {
     console.log('response', response);
   })
