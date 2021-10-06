@@ -3,12 +3,13 @@ const db = require('../../database');
 class ContactsRespository {
   async findAll(orderBy) {
     // Listar todos os registros de um repositório
-    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const direction = orderBy === 'desc' ? 'desc' : 'asc';
     const rows = await db.query(`
       SELECT contacts.*, categories.name AS category_name
       FROM contacts
       LEFT JOIN categories ON categories.id = category_id
-      ORDER BY contacts.name ${direction}`);
+      ORDER BY contacts.name ${direction}
+     `);
     return rows;
   }
 
